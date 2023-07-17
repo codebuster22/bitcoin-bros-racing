@@ -2,17 +2,6 @@
 /****************************************/
 /* common styles used for v1 through v4 */
 /****************************************/
-@media only screen and (min-width: 700px) {
-    .hide-on-desktop{
-        display: none !important;
-    }
-  }
-
-  @media only screen and (max-width: 700px) {
-    .hide-on-mobile{
-        display: none !important;
-    }
-  }
 
 #directions {
     margin-left: auto;
@@ -79,3 +68,21 @@ body          {
 #hud .value            { color: black; font-weight: bold; }
 #hud .fastest          { background-color: rgba(255,215,0,0.5); }
 
+@media (min-width: 577px) {
+    .hide-on-desktop{
+        display: none !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hide-on-mobile{
+        display: none !important;
+    }
+    #hud                   { position: absolute; z-index: 1; width: 100%; padding: 5px 0; font-family: Verdana, Geneva, sans-serif; font-size: 0.8em; background-color: rgba(255,0,0,0.4); color: black; border-bottom: 2px solid black; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+    #mute         { background-position:   0px 0px; width: 32px; height: 32px; background: url(images/mute.png); display: inline-block; cursor: pointer; position: absolute; margin-left: 0.5em; }
+    #mute.on      { background-position: -32px 0px; }
+    
+    #racer        { position: relative; z-index: 0; width: 100%; height: 433px; margin-left: auto; margin-right: auto; border: 2px solid black; }
+#canvas       { position: absolute; z-index: 0; width: 100%; height: 433px; z-index: 0; background-color: #72D7EE; }
+
+}
