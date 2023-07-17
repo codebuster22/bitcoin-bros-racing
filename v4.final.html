@@ -9,7 +9,7 @@
 
 <body> 
 
-  <table id="controls">
+  <table id="controls" style="display: none;"">
     <tr>
       <td colspan="2">
         <a href='v1.straight.html'>straight</a> |
@@ -63,7 +63,7 @@
     </tr>
   </table>
 
-  <div id='instructions'>
+  <div id='instructions' style="display: none;">
     <p>Use the <b>arrow keys</b> to drive the car.</p>
   </div>
 
@@ -85,6 +85,14 @@
     <source src="music/racer.mp3">
   </audio>
   <span id="mute"></span>
+  <div id="directions">
+    <div class="key-container">
+        <button id="direction-left" class="key left">Left</button>
+        <button id="direction-brake" class="key down">Down</button>
+        <button id="direction-right" class="key right">Right</button>
+        <button class="key empty"></button>
+    </div>
+  </div>
 
   <script src="stats.js"></script>
   <script src="common.js"></script>
@@ -133,10 +141,11 @@
     var totalCars      = 200;                     // total number of cars on the road
     var currentLapTime = 0;                       // current lap time
     var lastLapTime    = null;                    // last lap time
+    let autoAccel      = true;                    // auto accelerate
 
     var keyLeft        = false;
     var keyRight       = false;
-    var keyFaster      = false;
+    var keyFaster      = true;
     var keySlower      = false;
 
     var hud = {
@@ -612,11 +621,11 @@
         { keys: [KEY.LEFT,  KEY.A], mode: 'down', action: function() { keyLeft   = true;  } },
         { keys: [KEY.RIGHT, KEY.D], mode: 'down', action: function() { keyRight  = true;  } },
         { keys: [KEY.UP,    KEY.W], mode: 'down', action: function() { keyFaster = true;  } },
-        { keys: [KEY.DOWN,  KEY.S], mode: 'down', action: function() { keySlower = true;  } },
+        { keys: [KEY.DOWN,  KEY.S], mode: 'down', action: function() { keySlower = true; keyFaster = false;  } },
         { keys: [KEY.LEFT,  KEY.A], mode: 'up',   action: function() { keyLeft   = false; } },
         { keys: [KEY.RIGHT, KEY.D], mode: 'up',   action: function() { keyRight  = false; } },
-        { keys: [KEY.UP,    KEY.W], mode: 'up',   action: function() { keyFaster = false; } },
-        { keys: [KEY.DOWN,  KEY.S], mode: 'up',   action: function() { keySlower = false; } }
+        { keys: [KEY.UP,    KEY.W], mode: 'up',   action: function() { if(!autoAccel) keyFaster = false; } },
+        { keys: [KEY.DOWN,  KEY.S], mode: 'up',   action: function() { keySlower = false; keyFaster = true; } }
       ],
       ready: function(images) {
         background = images[0];
@@ -664,6 +673,77 @@
       Dom.blur(ev);
     });
 
+    function simulateKey (keyCode, type, modifiers) {
+	    var evtName = (typeof(type) === "string") ? "key" + type : "keydown";	
+	    var modifier = (typeof(modifiers) === "object") ? modifier : {};
+
+	    var event = document.createEvent("HTMLEvents");
+	    event.initEvent(evtName, true, false);
+	    event.keyCode = keyCode;
+	
+	    for (var i in modifiers) {
+		    event[i] = modifiers[i];
+	    }
+
+	    document.dispatchEvent(event);
+    }
+
+    // function handleAutoAccelChange(event) {
+    //   if (event.target.checked) {
+    //     console.log("Changes");
+    //     autoAccel = true;
+    //     simulateKey(KEY.UP, "down");
+    //   } else {
+    //     autoAccel=false;
+    //     simulateKey(KEY.UP, "up")
+    //   }
+    // }
+
+    function handleLeftDown(event) {
+      simulateKey(KEY.LEFT, "down");
+    }
+
+
+    function handleLeftUp(event) {
+      simulateKey(KEY.LEFT, "up");
+    }
+
+    function handleRightDown(event) {
+      simulateKey(KEY.RIGHT, "down");
+    }
+
+    function handleRightUp(event) {
+      simulateKey(KEY.RIGHT, "up");
+    }
+
+    function handleBrakeDown(event) {
+      simulateKey(KEY.DOWN, "down");
+    }
+
+    function handleBrakeUp(event) {
+      simulateKey(KEY.DOWN, "up");
+    }
+
+    function handleAccelerateDown(event) {
+      simulateKey(KEY.UP, "down");
+    }
+
+    function handleAccelerateUp(event) {
+      simulateKey(KEY.UP, "up");
+    }
+
+    Dom.on("direction-left", "mousedown", handleLeftDown);
+    Dom.on("direction-left", "mouseup", handleLeftUp);
+    Dom.on("direction-brake", "mousedown", handleBrakeDown);
+    Dom.on("direction-brake", "mouseup", handleBrakeUp);
+    Dom.on("direction-right", "mousedown", handleRightDown);
+    Dom.on("direction-right", "mouseup", handleRightUp);
+    Dom.on("direction-left", "touchstart", handleLeftDown);
+    Dom.on("direction-left", "touchend", handleLeftUp);
+    Dom.on("direction-brake", "touchstart", handleBrakeDown);
+    Dom.on("direction-brake", "touchend", handleBrakeUp);
+    Dom.on("direction-right", "touchstart", handleRightDown);
+    Dom.on("direction-right", "touchend", handleRightUp);
     Dom.on('lanes',          'change', function(ev) { Dom.blur(ev); reset({ lanes:         ev.target.options[ev.target.selectedIndex].value }); });
     Dom.on('roadWidth',      'change', function(ev) { Dom.blur(ev); reset({ roadWidth:     Util.limit(Util.toInt(ev.target.value), Util.toInt(ev.target.getAttribute('min')), Util.toInt(ev.target.getAttribute('max'))) }); });
     Dom.on('cameraHeight',   'change', function(ev) { Dom.blur(ev); reset({ cameraHeight:  Util.limit(Util.toInt(ev.target.value), Util.toInt(ev.target.getAttribute('min')), Util.toInt(ev.target.getAttribute('max'))) }); });
