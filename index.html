@@ -63,10 +63,6 @@
     </tr>
   </table>
 
-  <div id='instructions' style="display: none;">
-    <p>Use the <b>arrow keys</b> to drive the car.</p>
-  </div>
-
   <div id="racer">
     <div id="hud">
       <span id="speed"            class="hud"><span id="speed_value" class="value">0</span> mph</span>
@@ -86,7 +82,10 @@
   </audio>
   <span id="mute"></span>
   <div id="directions">
-    <div class="key-container">
+  <div class="hide-on-mobile" id='instructions'>
+    <p style="text-align:center"">Use the <b>arrow keys</b> to drive our Bro.</p>
+  </div>
+    <div class="key-container hide-on-desktop">
         <button id="direction-left" class="key left">Left</button>
         <button id="direction-brake" class="key down">Down</button>
         <button id="direction-right" class="key right">Right</button>
