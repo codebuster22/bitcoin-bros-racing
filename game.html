@@ -168,8 +168,19 @@ addDoc(collection(db, "leaderboard"), {
     console.error("Error adding document: ", error);
 });
   }
+  
+  var fps            = 75;                      // how many 'update' frames per second
+  var totalCars      = 200;                     // total number of cars on the road
+    
+    
+  if (params.player_name[0].includes("bro")){
+    fps = 85;
+    totalCars = 175;
+  } else {
+    fps = 75;
+    totalCars = 200
+  }
 
-    var fps            = 75;                      // how many 'update' frames per second
     var step           = 1/fps;                   // how long is each frame (in seconds)
     var width          = 1024;                    // logical canvas width
     var height         = 768;                     // logical canvas height
@@ -209,7 +220,6 @@ addDoc(collection(db, "leaderboard"), {
     var decel          = -maxSpeed/5;             // 'natural' deceleration rate when neither accelerating, nor braking
     var offRoadDecel   = -maxSpeed/2;             // off road deceleration is somewhere in between
     var offRoadLimit   =  maxSpeed/4;             // limit when off road deceleration no longer applies (e.g. you can always go at least this speed even when off road)
-    var totalCars      = 200;                     // total number of cars on the road
     var currentLapTime = 0;                       // current lap time
     var lastLapTime    = null;                    // last lap time
     let autoAccel      = true;                    // auto accelerate
