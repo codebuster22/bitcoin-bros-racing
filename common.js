@@ -379,8 +379,8 @@ var SPRITES = {
   BILLBOARD09:     { x:  150, y:  555, w:  328, h:  282 },
   BOULDER3:        { x:  230, y:  280, w:  320, h:  220 },
   COLUMN:          { x:  995, y:    5, w:  200, h:  315 },
-  BILLBOARD05:     { x:  625, y:  375, w:  300, h:  170 },
-  BILLBOARD04:     { x:  488, y:  555, w:  300, h:  170 },
+  BILLBOARD04:     { x:  625, y:  375, w:  300, h:  170 },
+  BILLBOARD05:     { x:  488, y:  555, w:  300, h:  170 },
   BILLBOARD01:     { x:    5, y:  897, w:  300, h:  170 },
   BILLBOARD06:     { x: 1205, y:    5, w:  298, h:  190 },
   BILLBOARD07:     { x: 1205, y:  205, w:  298, h:  190 },
@@ -395,20 +395,20 @@ var SPRITES = {
   BILLBOARD02:     { x:  245, y: 1239, w:  215, h:  220 },
   STUMP:           { x:  247, y: 1077, w:  195, h:  140 },
   SEMI:            { x:  798, y:  555, w:  122, h:  144 },
+  PLAYER_STRAIGHT: { x:  452, y: 1077, w:   80, h:  135 },
+  PLAYER_LEFT:     { x:  542, y: 1077, w:   80, h:  132 },
+  PLAYER_RIGHT:    { x:  632, y: 1077, w:   80, h:  132 },
+  PLAYER_UPHILL_STRAIGHT: { x:  452, y: 1077, w:   80, h:  135 },
+  PLAYER_UPHILL_LEFT:     { x:  542, y: 1077, w:   80, h:  132 },
+  PLAYER_UPHILL_RIGHT:    { x:  632, y: 1077, w:   80, h:  132 },
   TRUCK:           { x:  488, y:  735, w:  100, h:   78 },
   CAR03:           { x:  598, y:  735, w:   88, h:   55 },
-  PLAYER_RIGHT:    { x:  560, y:  280, w:   52, h:   81 },
-  PLAYER_STRAIGHT: { x:  560, y:  371, w:   52, h:   81 },
-  PLAYER_LEFT:     { x:  930, y:  555, w:   52, h:   81 },
-  PLAYER_UPHILL_RIGHT:    { x:  560, y:  280, w:   52, h:   81 },
-  PLAYER_UPHILL_STRAIGHT: { x:  560, y:  371, w:   52, h:   81 },
-  PLAYER_UPHILL_LEFT: { x:  930, y:  555, w:   52, h:   81 },
   CAR02:           { x:  560, y:  897, w:   80, h:   59 },
   CAR04:           { x:  650, y:  897, w:   80, h:   57 },
   CAR01:           { x:  740, y:  897, w:   80, h:   56 }
-};
+}
 
-SPRITES.SCALE = 0.2 * (1/SPRITES.PLAYER_STRAIGHT.w) // the reference sprite width should be 1/3rd the (half-)roadWidth
+SPRITES.SCALE = 0.18 * (1/SPRITES.PLAYER_STRAIGHT.w) // the reference sprite width should be 1/3rd the (half-)roadWidth
 
 SPRITES.BILLBOARDS = [SPRITES.BILLBOARD01, SPRITES.BILLBOARD02, SPRITES.BILLBOARD03, SPRITES.BILLBOARD04, SPRITES.BILLBOARD05, SPRITES.BILLBOARD06, SPRITES.BILLBOARD07, SPRITES.BILLBOARD08, SPRITES.BILLBOARD09];
 SPRITES.PLANTS     = [SPRITES.TREE1, SPRITES.TREE2, SPRITES.DEAD_TREE1, SPRITES.DEAD_TREE2, SPRITES.PALM_TREE, SPRITES.BUSH1, SPRITES.BUSH2, SPRITES.CACTUS, SPRITES.STUMP, SPRITES.BOULDER1, SPRITES.BOULDER2, SPRITES.BOULDER3];
